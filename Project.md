@@ -6,8 +6,8 @@
 |---|---|
 | 仓库 | https://github.com/Allenkzl/Electronic-Sucker |
 | 硬件 | Arduino Uno（CH340 兼容板）+ 电子吸盘（气泵）+ 电磁阀 |
-| 代码规模 | 约 1900 行（固件 329 / 桥接 622 / 网页 528 / 工具 393） |
-| 固件占用 | Flash 6494 B（20%），RAM 403 B（19%） |
+| 代码规模 | 约 2000 行（固件 446 / 桥接 624 / 网页 528 / 工具 393） |
+| 固件占用 | Flash 7678 B（23%），RAM 448 B（21%） |
 | 运行环境 | macOS + Python 3.11（仅需 pyserial）+ Chrome/Safari |
 
 ---
@@ -276,7 +276,7 @@ Uno 的 A0~A5 是**模拟输入引脚，但同时也是数字引脚 14~19**。
 
 ## 5. 固件设计
 
-文件：`firmware/sucker/sucker.ino`（444 行）
+文件：`firmware/sucker/sucker.ino`（446 行）
 
 ### 5.1 状态与变量
 
@@ -378,7 +378,7 @@ READY / PONG                                             握手与心跳
 
 ## 6. 桥接服务设计
 
-文件：`bridge/bridge.py`（622 行）。只用标准库 + pyserial，无 Web 框架。
+文件：`bridge/bridge.py`（624 行）。只用标准库 + pyserial，无 Web 框架。
 
 ### 6.1 线程模型
 
@@ -441,7 +441,6 @@ READY / PONG                                             握手与心跳
 | POST | `/api/drop` | `{drop_ms}` | 放下 |
 | POST | `/api/stop` | — | 急停 |
 | POST | `/api/settings` | `{pick_ms,drop_ms,watchdog,mode}` | 参数下发 + 持久化 |
-| POST | `/api/mode` | `{mode}` | 单独切换输出模式 |
 
 `/api/status` 返回：
 

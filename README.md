@@ -180,7 +180,8 @@ sucker/
 ├── scripts/setup.sh              安装工具链
 ├── scripts/flash.sh              编译并上传固件
 ├── scripts/run.sh                启动服务
-├── docs/superpowers/specs/       设计文档
+├── .agents/skills/               项目级 agent skill（选自 pstack，MIT）
+├── AGENTS.md                     给 agent 的仓库规则与验证命令
 └── arduino-cli.yaml              项目本地工具链配置
 ```
 

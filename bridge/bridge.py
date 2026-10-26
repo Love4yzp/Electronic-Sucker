@@ -19,8 +19,7 @@ HTTP 接口（只绑定 127.0.0.1，局域网访问不到）:
     POST /api/pick              {"pick_ms": 0}      吸盘开，0 = 吸到点「放下」为止
     POST /api/drop              {"drop_ms": 800}    吸盘关 + 电磁阀脉冲放料
     POST /api/stop              四路全关（急停）
-    POST /api/settings          {"pick_ms":0,"drop_ms":800,"watchdog":15000}
-    POST /api/mode              {"mode": "servo" | "digital"}
+    POST /api/settings          {"pick_ms":0,"drop_ms":800,"watchdog":15000,"mode":"servo"}
 """
 
 from __future__ import annotations
@@ -556,16 +555,6 @@ def make_handler(bridge: SerialBridge):
                 if changed:
                     bridge.emit("cmd", "更新参数：" + ", ".join(changed))
                 return self._json({"ok": True, "settings": bridge.settings})
-
-            if path == "/api/mode":
-                mode = body.get("mode")
-                if mode not in ("servo", "digital"):
-                    return self._json({"error": "mode must be servo|digital"}, 400)
-                ok = bridge.command(f"MODE {mode}")
-                bridge.settings["mode"] = mode
-                bridge._save_settings()
-                bridge.emit("cmd", f"输出模式切换为 {mode}")
-                return self._json({"ok": ok, "mode": mode})
 
             return self._json({"error": "not found"}, 404)
 

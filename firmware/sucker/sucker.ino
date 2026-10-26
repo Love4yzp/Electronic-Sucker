@@ -344,9 +344,9 @@ void handleLine(char *line) {
     if (a1 == NULL || a2 == NULL) { err(F("SET needs key value")); return; }
     uint32_t v = strtoul(a2, NULL, 10);
     upperInPlace(a1);
-    if      (strcmp(a1, "PICK_MS") == 0 || strcmp(a1, "PICK") == 0)     pickMs     = v;
-    else if (strcmp(a1, "DROP_MS") == 0 || strcmp(a1, "DROP") == 0)     dropMs     = v;
-    else if (strcmp(a1, "WATCHDOG") == 0)                               watchdogMs = v;
+    if      (strcmp(a1, "PICK_MS") == 0) pickMs     = v;
+    else if (strcmp(a1, "DROP_MS") == 0) dropMs     = v;
+    else if (strcmp(a1, "WATCHDOG") == 0) watchdogMs = v;
     else { err(F("unknown key")); return; }
     ack(F("SET"));
     reportState(true);
